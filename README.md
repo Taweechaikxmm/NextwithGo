@@ -1,6 +1,9 @@
 ## Start Project
 ### Run 2 Termial for starting
 Please see file **[setup.go](./backend/entity/setup.go)** for setup database
+
+**.vscode for debugger only**
+
 - Terminal frontend
 ```tsx
 cd frondend
