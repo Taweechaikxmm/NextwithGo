@@ -2,7 +2,26 @@
 ### Run 2 Termial for starting
 Please see file **[setup.go](./backend/entity/setup.go)** for setup database
 
-**.vscode for debugger only**
+**If you would like to debug. Create launch.json in folder .vscode**
+
+**launch.json**
+```tsx
+{
+    //For Debugger only
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/backend",
+            "output": "${workspaceFolder}/backend/debug/__debug_bin"
+        }
+    ]
+}
+```
 
 - Terminal frontend
 ```tsx
