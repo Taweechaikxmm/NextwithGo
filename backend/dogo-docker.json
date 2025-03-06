@@ -2,7 +2,6 @@
     "WorkingDir": "/app", 
     "SourceDir": ["/app"], 
     "SourceExt": [".go"],  
-    "BuildCmd": "go run -v main.go", 
     "RunCmd": "go run -v main.go", 
     "Decreasing": 1,
     "Debug": true

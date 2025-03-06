@@ -3,7 +3,6 @@ package entity
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -17,16 +16,19 @@ func DB() *gorm.DB {
 }
 
 func SetupDatabase() {
-	// ถ้าใช้ mysql ใน เครื่อง
-	// dsn := "root:my-secret-pw@tcp(localhost:3306)/TestGo?charset=utf8mb4&parseTime=True&loc=Local"
-	dbUser := os.Getenv("DB_USER")
-	dbPassword := os.Getenv("DB_PASSWORD")
-	dbHost := os.Getenv("DB_HOST") // ใช้ service name ใน docker-compose
-	dbPort := os.Getenv("DB_PORT")
-	dbName := os.Getenv("DB_NAME")
+	// ถ้าใช้ mysql ใน เครื่องเปิดด้านล่างนี้ dsn นี้ตัวเดียว
+	dsn := "root:my-secret-pw@tcp(localhost:3306)/TestGo?charset=utf8mb4&parseTime=True&loc=Local"
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		dbUser, dbPassword, dbHost, dbPort, dbName)
+	// ถ้าใช้ docker compose ให้เปิดด้านล่างนี้แล้วปิด dsn ด้านบน (เหมาะกับ Deploy) เนื่องจากทดสอบแล้วว่า dogo ใน Docker ช้าไม่เหมาะ Dev
+	// dbUser := os.Getenv("DB_USER")
+	// dbPassword := os.Getenv("DB_PASSWORD")
+	// dbHost := os.Getenv("DB_HOST") // ใช้ service name ใน docker-compose
+	// dbPort := os.Getenv("DB_PORT")
+	// dbName := os.Getenv("DB_NAME")
+
+	// dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	// 	dbUser, dbPassword, dbHost, dbPort, dbName)
+	////////////////////////////////////////////
 
 	// Retry จนกว่าจะเชื่อมต่อสำเร็จ
 	var err error

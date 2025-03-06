@@ -1,3 +1,17 @@
+## Start Project
+### Run 2 Termial for starting
+Please see file **[setup.go](./backend/entity/setup.go)** for setup database
+- Terminal frontend
+```tsx
+cd frondend
+npm run dev
+```
+- Terminal backend
+```tsx
+cd backend
+dogo
+```
+
 ## Step 1 Install จ้า (frontend คือชื่อโฟลเดอร์)
 
 ```sh
