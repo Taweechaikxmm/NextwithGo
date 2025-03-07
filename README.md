@@ -1,3 +1,6 @@
+# Template CRUD GO with Next.js 15 !
+This project is built using **[Next.js 15](https://nextjs.org/)** for the frontend, which includes **[TailwindCSS](https://tailwindcss.com/)**, **[ESLint](https://eslint.org/)**, and **[TypeScript](https://www.typescriptlang.org/)**. On the backend, **[Go](https://golang.org/)** is used with the **[Gin](https://gin-gonic.com/)** framework, **[Gorm](https://gorm.io/)**, and **[Dogo](https://github.com/dogo/dogo)**. The database used is **[MySQL](https://www.mysql.com/)**. The CRUD functionality has already been set up as the initial groundwork.
+
 ## Start Project
 ### Run 2 Termial for starting
 Please see file **[setup.go](./backend/entity/setup.go)** for setup database
@@ -33,7 +36,7 @@ dogo
 }
 ```
 
-## Step 1 Install จ้า (frontend คือชื่อโฟลเดอร์)
+## Step 1 Install (frontend คือชื่อโฟลเดอร์)
 
 ```sh
 npx create-next-app@latest frontend
@@ -42,18 +45,26 @@ npx create-next-app@latest frontend
 
 ```plaintext
 /app
-  /about
-    /page.tsx          # http://localhost:3000/about
-  /info
-    /page.tsx          # http://localhost:3000/info
+  /api
+    /projectdata
+      route.ts         # http://localhost:3000/api/projectdata
+  /blog
+    /page.tsx          # http://localhost:3000/blog
+    /error.tsx         # ถูกเรียนอัตโนมัติเมื่อมีการกดเข้าที่หน้า blog แล้ว error ใช้เฉพาะของหน้านี้
+    /loading.tsx       # ถูกเรียนอัตโนมัติเมื่อมีการกดเข้าที่หน้า blog เป็น loading เฉพาะของหน้านี้
+  /lib
+    /project
+      /actions.ts      #แหล่งรวม Controller สำหรับ frontend ใช้ในการติดต่อไป backend
+  /project
+    /page.tsx          # http://localhost:3000/project
           [id]         # [id] params folder
-            /page.tsx  # http://localhost:3000/info/123456
-  /_folder             # Private Folder (no public access)
-  /(auth)              # Groups Folder
+            /page.tsx  # http://localhost:3000/info/{id} ใช้สำหรับ Dynamic routing http://localhost:3000/info/123
+  /_folder             # Private Folder (no public access) _นำหน้าคือ Private Folder
+  /(auth)              # Groups Folder ถ้าจะใช้ group ในการแยกให้ใช้ () ในการแบ่งกลุ่มเข่นอันนี้จะเป็นของ auth
     /login
         /page.tsx      # http://localhost:3000/login
-    /[...sign-in]         # params
-        /page.tsx      # http://localhost:3000/sign-in
+    /[...sign-in]         # ... คือ params หลายตัว 
+        /page.tsx      # http://localhost:3000/sign-in ,http://localhost:3000/sign-in/a/b, http://localhost:3000/sign-in/a/b/c
     /register
         /page.tsx      # http://localhost:3000/register
 ```
@@ -110,15 +121,15 @@ const ProjectDetail = async ({
 export default ProjectDetail;
 ```
 
-### Step 5 Image
+### Step 5 Config Image
 
 ```tsx
 const url =
   "https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU";
 ```
 
-### next.config.ts
-
+### next.config.ts ตั้งค่าการดึงรูปภาพ
+ถ้าอยากให้รูปภาพที่ดึงมามีการนิ่งสมูท ให้ใช้ priority ใน <img src="..." priority>
 ```tsx
 import type { NextConfig } from "next";
 
@@ -174,24 +185,16 @@ export default const ClientComponent = ()=>{
 # actions.tsx
 
 ```ts
-export const createCamp = async (formData) => {
-  // const firstName = formData.get('title')
-  // const description = formData.get('description')
-  const rawData = Object.fromEntries(formData);
-  console.log(rawData);
-  // db.camp.create({})
-  // revalidatePath('/actions') // refresh Data
-  // redirect('/')
-};
-
-export const fetchCamp = async () => {
-  // db.camp.findMany({})
-  const user = [
-    { id: 1, title: "Route 3060" },
-    { id: 2, title: "Korat" },
-  ];
-
-  return user;
+// GET Projects
+export const getAllProjects = async (): Promise<Project[]> => {
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Failed to fetch projects");
+        return await res.json();
+    } catch (error) {
+        console.error("Error fetching projects:", error);
+        return [];
+    }
 };
 ```
 
@@ -210,20 +213,16 @@ const { pending, data, method, action } = useFormStatus();
 # Step 8 API
 ```plaintext
 /api
-    /camp
+    /projectdata
         /route.ts
 ```
 ```ts
-import { fetchCamp } from "@/utils/actions";
-import { NextResponse } from "next/server";
+//เป็นการสร้าง api เพื่อให้ผู้อื่นสามารถยิงเข้ามาแล้วนำไปใช้ได้
+const url = 'http://localhost:8085'; // อาจจะใช้จาก .env
 
-export const GET = async (req: NextResponse) => {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  console.log(id);
-
-  const camps = await fetchCamp();
-  //   return Response.json({ camps });
-  return NextResponse.redirect(new URL("/", req.url));
-};
+export const GET = async() => {
+    const res = await fetch(`${url}/projects`);
+    const data = await res.json();
+    return Response.json(data);
+}
 ```
