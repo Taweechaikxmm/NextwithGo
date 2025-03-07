@@ -1,6 +1,12 @@
 # Template CRUD GO with Next.js 15 !
 This project is built using **[Next.js 15](https://nextjs.org/)** for the frontend, which includes **[TailwindCSS](https://tailwindcss.com/)**, **[ESLint](https://eslint.org/)**, and **[TypeScript](https://www.typescriptlang.org/)**. On the backend, **[Go](https://golang.org/)** is used with the **[Gin](https://gin-gonic.com/)** framework, **[Gorm](https://gorm.io/)**, and **[Dogo](https://github.com/liudng/dogo)**. The database used is **[MySQL](https://www.mysql.com/)**. The CRUD functionality has already been set up as the initial groundwork.
 
+## Demo Project
+<p align="center">
+  <img src="./frontend/public/Demo.gif" alt="Demo" width="800" />
+</p>
+
+
 ## Start Project
 ### Run 2 Termial for starting
 Please see file **[setup.go](./backend/entity/setup.go)** for setup database
