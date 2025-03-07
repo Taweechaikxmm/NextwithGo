@@ -81,7 +81,7 @@ export const metadata: Metadata = {
 };
 ```
 
-### Step 3 Server Components
+## Step 3 Server Components
 
 ### Default เป็น Server Component
 
@@ -121,7 +121,7 @@ const ProjectDetail = async ({
 export default ProjectDetail;
 ```
 
-### Step 5 Config Image
+## Step 5 Config Image
 
 ```tsx
 const url =
@@ -154,7 +154,7 @@ Next.js <Image /> component
 - ช่วยให้การจัดการภาพในเว็บไซต์มีประสิทธิภาพมากขึ้นโดยอัตโนมัติ
 - ปรับขนาดภาพให้เหมาะสม ลดการเลื่อนเลย์เอาต์ และเพิ่มความเร็วในการโหลดหน้าเว็บ
 
-# Step 6 Server Actions
+## Step 6 Server Actions
 
 ```tsx
 export default const ServerComponent =()=>{
@@ -182,7 +182,7 @@ export default const ClientComponent = ()=>{
 
 ```
 
-# actions.tsx
+### actions.tsx
 
 ```ts
 // GET Projects
@@ -198,19 +198,19 @@ export const getAllProjects = async (): Promise<Project[]> => {
 };
 ```
 
-# Step 7 https://react.dev/reference/react/useActionState
+## Step 7 https://react.dev/reference/react/useActionState
 
 ```tsx
 const [state, formAction, isPending] = useActionState(fn, initialState, permalink?);
 ```
 
-# https://react.dev/reference/react-dom/hooks/
+### https://react.dev/reference/react-dom/hooks/
 
 ```tsx
 const { pending, data, method, action } = useFormStatus();
 ```
 
-# Step 8 API
+## Step 8 API
 ```plaintext
 /api
     /projectdata
